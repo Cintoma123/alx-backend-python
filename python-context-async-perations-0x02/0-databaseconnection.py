@@ -15,8 +15,9 @@ class DatabaseConnection:
         if exc_val is not None:
             print(f'error occured:{exc_val}')
 
-    db_name = 'users.db'
+    
     def create_table():
+       result = 'users.db'
        with DatabaseConnection('users.db') as connection:
         try:
                cursor = connection.cursor() 
@@ -31,6 +32,7 @@ class DatabaseConnection:
                print(f'database not sucessfully created {e}')
         finally:
             connection.close()
+            return result
 
         def insert_table():
             with DatabaseConnection('user.db') as connection:
