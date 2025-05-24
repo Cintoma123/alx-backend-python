@@ -7,7 +7,7 @@ class ExecuteQuery:
     def __init__(self, db_name : str, query:str):
         self.db_name = db_name
         self.conn = None
-    def __init__(self):
+    def __enter__(self):
         try:
             self.connection = self.sqlite3.connect(self.db_name)
             self.cursor = self.connection.cursor()

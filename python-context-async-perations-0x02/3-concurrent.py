@@ -35,7 +35,7 @@ async def async_fetch_users(db_name: str):
         logging.error(f'an error occurred as {e}')
     return result
 
-async def async_fetch_olders_users(db_name: str, age: int = 40):
+async def async_fetch_older_users(db_name: str, age: int = 40):
     result = []
     try:
         async with aiosqlite.connect(db_name) as connection:
@@ -47,10 +47,11 @@ async def async_fetch_olders_users(db_name: str, age: int = 40):
     return result
 
 async def fetch_concurrently():
-    return await asyncio.gather(
+    result = await asyncio.gather(
         async_fetch_users('users.db'),
-        async_fetch_olders_users('users.db', 40)
+        async_fetch_older_users('users.db', 40)
     )
+    return result
 
 if __name__ == '__main__':
     asyncio.run(create_database())
