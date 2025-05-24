@@ -11,7 +11,7 @@ class DatabaseConnection:
         self.cursor = self.connection.cursor()
         return self 
     
-    def __exist__(self , exc_type ,exc_val , exc_tb):
+    def __exit__(self , exc_type ,exc_val , exc_tb):
         if exc_val is not None:
             print(f'error occured:{exc_val}')
 
