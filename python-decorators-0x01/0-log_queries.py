@@ -17,6 +17,7 @@ def log_queries(func):
         result = func(*args, **kwargs)
         return result
     return wrapper
+    print(log_queries)
 
 def fetch_all_users(query):
     conn = sqlite3.connect('users.db')
