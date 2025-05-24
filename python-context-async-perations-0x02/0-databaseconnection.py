@@ -5,10 +5,12 @@ class DatabaseConnection:
     def __init__(self, db_name : str):
         self.db_name = db_name
         self.conn = None
+
     def __enter__(self):
         self.connection = self.sqlite3.connect(self.db_name)
         self.cursor = self.connection.cursor()
         return self 
+    
     def __exist__(self , exc_type ,exc_val , exc_tb):
         if exc_val is not None:
             print(f'error occured:{exc_val}')

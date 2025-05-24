@@ -7,6 +7,8 @@ class ExecuteQuery:
     def __init__(self, db_name : str, query:str):
         self.db_name = db_name
         self.conn = None
+
+        
     def __enter__(self):
         try:
             self.connection = self.sqlite3.connect(self.db_name)
@@ -14,8 +16,8 @@ class ExecuteQuery:
         except sqlite3.error as e :
             print('database not connected sucessfully {e}')
             raise
-
         return self 
+    
     def __exist__(self , exc_type ,exc_val , exc_tb):
         if exc_val is not None:
             print(f'error occured:{exc_val}')

@@ -24,7 +24,8 @@ async def create_database(db_name: str = 'users.db'):
     except Exception as e:
         logging.error(f"Error creating database: {e}")
 
-async def async_fetch_users(db_name: str):
+async def async_fetch_users():
+    db_name = 'users.db'
     result = []
     try:
         async with aiosqlite.connect(db_name) as connection:
@@ -33,9 +34,13 @@ async def async_fetch_users(db_name: str):
             logging.info('fetching all users')
     except Exception as e:
         logging.error(f'an error occurred as {e}')
+        return db_name
     return result
 
-async def async_fetch_older_users(db_name: str, age: int = 40):
+
+async def async_fetch_older_users():
+    db_name = 'users.db'
+    age = 40
     result = []
     try:
         async with aiosqlite.connect(db_name) as connection:
@@ -47,14 +52,16 @@ async def async_fetch_older_users(db_name: str, age: int = 40):
     return result
 
 async def fetch_concurrently():
+    output = await create_database(db_name = 'users.db')
     result = await asyncio.gather(
-        async_fetch_users('users.db'),
-        async_fetch_older_users('users.db', 40)
+        async_fetch_users(),
+        async_fetch_older_users()
     )
-    return result
+    return output , result 
+
 
 if __name__ == '__main__':
-    asyncio.run(create_database())
+    
     try:
         all_data, data_gathering = asyncio.run(fetch_concurrently())
         for user in all_data:
