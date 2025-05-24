@@ -4,7 +4,7 @@ import logging
 
 
 class ExecuteQuery:
-    def __init__(self, db_name : str, query:str):
+    def __init__(self, db_name : str = 'users.db', query:str = None):
         self.db_name = db_name
         self.conn = None
 
