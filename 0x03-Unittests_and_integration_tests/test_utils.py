@@ -8,12 +8,13 @@ from parameterized import parameterized
 
 class TestAccessNestedMap(unittest.TestCase):
     '''Test case for acess_nested_map function'''
-
     @parameterized.expand([
         ({'a':'1'}, ('a',), '1'),
         ({'a':{'b': '2'}},('a',),{'b':'2'}),
              ({'a':{'b':'2'}},{'a','b'},{'a,'b':2'}),
     ])
+
+
     def test_access_nested_map(self,  nested_map:dict , path:tuple , excepted_key:any) -> None:
         result = access_nested_map(nested_map, path)
         self.assertEqual(result , excepted_key , f'acessing {path} in {nested_map} should return {excepted_key}')
