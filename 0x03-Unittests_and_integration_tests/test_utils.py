@@ -6,25 +6,25 @@ from parameterized import parameterized
 
 
 
+from typing import Any
+
 class TestAccessNestedMap(unittest.TestCase):
-    '''Test case for acess_nested_map function'''
+    '''Test case for access_nested_map function'''
     @parameterized.expand([
-        ({'a':'1'}, ('a',), '1'),
-        ({'a':{'b': '2'}},('a',),{'b':'2'}),
-             ({'a':{'b':'2'}},{'a','b'},{'a,'b':2'}),
+        ({'a': '1'}, ('a',), '1'),
+        ({'a': {'b': '2'}}, ('a',), {'b': '2'}),
+        ({'a': {'b': '2'}}, ('a', 'b'), '2')
     ])
-
-
-    def test_access_nested_map(self,  nested_map:dict , path:tuple , excepted_key:any) -> None:
+    def test_access_nested_map(self, nested_map: dict, path: tuple, expected_key: Any) -> None:
         result = access_nested_map(nested_map, path)
-        self.assertEqual(result , excepted_key , f'acessing {path} in {nested_map} should return {excepted_key}')
+        self.assertEqual(result, expected_key, f'accessing {path} in {nested_map} should return {expected_key}')
 
 
 
     @parameterized.expand([
-         ({}, ('a',), 'a'),
-         ({'a': '1'}, ('b',), 'b'),
-         ({'a': '1'}, ('a', 'b'), 'b')
+        ({}, ('a',), 'a'),
+        ({'a': '1'}, ('b',), 'b'),
+        ({'a': '1'}, ('a', 'b'), 'b')
     ])
     def test_access_nested_map_exception(self, nested_map: dict, path: tuple, expected_key: str) -> None:
         with self.assertRaises(KeyError) as cm:
