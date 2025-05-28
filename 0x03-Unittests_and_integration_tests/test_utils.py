@@ -52,21 +52,24 @@ class TestAccessNestedMap(unittest.TestCase):
 
     
 class TestMemoize(unittest.TestCase):
+     '''Test case for memoize'''
      def test_memoize(self):
+          '''Test cases for memoize decorator'''
           class TestClass:
             def a_method(self):
               return 42
           @property
           @memoize
           def a_property(self):
+              '''return cached result a_method'''
               return self.a_method()
           with patch.object(TestClass, 'a_method') as mock_method:
               mock_method.return_value = 42
               obj = TestClass()
               result1 = obj.a_property
               result2 = obj.a_property
-              self.assertEqual(result1, 42)
-              self.assertEqual(result2, 42)
+              self.assertEqual(result1, 42,'first call should return 42')
+              self.assertEqual(result2, 42, 'second call should return 42')
 
 
 
