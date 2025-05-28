@@ -7,12 +7,14 @@ from parameterized import parameterized
 
 
 class TestAccessNestedMap(unittest.TestCase):
+    '''Test case for acess_nested_map function'''
+
     @parameterized.expand([
         ({'a':'1'}, ('a',), '1'),
         ({'a':{'b': '2'}},('a',),{'b':'2'}),
              ({'a':{'b':'2'}},{'a','b'},{'a,'b':2'}),
     ])
-    def test_acess_nested_map(self,  nested_map:dict , path:tuple , excepted_key:any):
+    def test_access_nested_map(self,  nested_map:dict , path:tuple , excepted_key:any) -> None:
         result = access_nested_map(nested_map, path)
         self.assertEqual(result , excepted_key , f'acessing {path} in {nested_map} should return {excepted_key}')
 
@@ -23,7 +25,7 @@ class TestAccessNestedMap(unittest.TestCase):
          ({'a': '1'}, ('b',), 'b'),
          ({'a': '1'}, ('a', 'b'), 'b')
     ])
-    def test_access_nested_map_exception(self, nested_map: dict, path: tuple, expected_key: str):
+    def test_access_nested_map_exception(self, nested_map: dict, path: tuple, expected_key: str) -> None:
         with self.assertRaises(KeyError) as cm:
             access_nested_map(nested_map, path)
         self.assertEqual(str(cm.exception), f"'{expected_key}'", f"KeyError for {path} should reference '{expected_key}'")
