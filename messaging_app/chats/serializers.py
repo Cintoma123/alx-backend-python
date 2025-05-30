@@ -14,7 +14,8 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class ConversationSerializer(serializers.ModelSerializer):
-    Message = MessageSerializer(many=True read_only=True)
+    participants = UsersSerializer(many=True, read_only=True)
+    Messages = MessageSerializer(many=True read_only=True)
     class Meta:
         model = Message
         fields = ['sender','conversation','text','timestamp','is_read','is_deleted']
