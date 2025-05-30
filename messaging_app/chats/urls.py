@@ -1,13 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter  
-from .views import ConversationViewSet, MessageViewSet  # 
+from .views import  MessageViewSet , ConservationViewSet
 
 # Import your viewsets here
 # Ensure you have the correct import paths for your viewsets
 router = DefaultRouter()
-router.register(r'Message', MessageViewSet)
-router.register(r'Conversation', ConservationViewSet, basename='Conversation')
+router.register(r'conversations', ConservationViewset)
+router.register(r'messages', MessageViewSet, basename='Conversation')
 
 nested_router = NestedDefaultRouter(
     router, r'Conversation', lookup='conversation'
