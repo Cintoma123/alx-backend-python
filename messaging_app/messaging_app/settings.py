@@ -41,6 +41,17 @@ INSTALLED_APPS = [
     'chats'
 ]
 
+REST_FRAMEWORK = [{
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # <-- Only authenticated users can access the API by default
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',  # <-- Enables session-based authentication
+        'rest_framework.authentication.BasicAuthentication',    # (optional) Enables basic auth
+    ],
+}]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
