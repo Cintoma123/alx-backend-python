@@ -7,6 +7,7 @@ class UsersSerializer(serializers.ModelSerializer):
         fields = ['name_of_user','Email_of_user','password','is_online']
 
 class MessageSerializer(serializers.ModelSerializer):
+    sender = UsersSerializer(read_only=True)
     class Meta:
         model = Conversation
         fields = ['participants1','participants2','participants','created_at','last_updated']
