@@ -18,6 +18,10 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation
         fields = ['participants1','participants2','participants','created_at','last_updated']
+def validate_message(self , value):
+    if not value.stip():
+     raise serializers.ValidationError('message body cannot be empty')
+    return value
         
 
 
