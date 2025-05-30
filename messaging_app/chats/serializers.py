@@ -14,10 +14,12 @@ class MessageSerializer(serializers.ModelSerializer):
     message_id = serializers.UUIDField(read_only=True)
     message_body = serializers.CharField(max_length=500)
     timestamp = serializers.DateTimeField(read_only=True)
+    message_preview = serializers.SerializerMethodField()
 
     class Meta:
-        model = Conversation
-        fields = ['participants1','participants2','participants','created_at','last_updated']
+        model = Message
+        fields = ['sender', 'message_id', 'message_body', 'timestamp', 'message_preview']
+
 def validate_message(self , value):
     if not value.stip():
      raise serializers.ValidationError('message body cannot be empty')
