@@ -10,6 +10,8 @@ class ConversationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation
         fields = ['participants1','participants2','participants','created_at','last_updated']
+        Message = MessageSerializer(many=True, read_only=True)  # Nested book serializer
+
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
