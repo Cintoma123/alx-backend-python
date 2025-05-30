@@ -13,12 +13,14 @@ class Users(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
     primary_key = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    password = models.CharField(max_length=255, unique=True)
+    
 
     def __str__(self):
         return self.username
     
 
-class conversation (models.Model):
+class Conversation (models.Model):
     '''model representing a conversation in the messaging app.'''
     conversation_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     participant = models.ManyToManyField(Users, related_name='participants')
@@ -28,11 +30,12 @@ class conversation (models.Model):
         return f"Conversation between {self.participant.all()} with ID {self.conversation_id}"
 
 
-class message(models.Model):
+class Message(models.Model):
     '''model representing a message in the messaging app.'''
     message_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     sent_at = models.DateTimeField(auto_now_add=True)
     message_body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Message {self.message_id} sent at {self.sent_at} with body: {self.message_body}"
