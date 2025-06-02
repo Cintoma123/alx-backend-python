@@ -34,7 +34,7 @@ class RestrictAccessByTimeMiddleware:
         # If the request is within the allowed time, proceed to the next middleware or view
         return self.getresponse(request )
 
-class OffensiveLanguageFilterMiddleware:
+class OffensiveLanguageMiddleware:
     def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]) -> None:
         self.get_response = get_response
         self.message_count = {}
