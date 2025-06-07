@@ -11,7 +11,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
     filter_backends = [filters.SearchFilter]
     permission_classes = [IsConversationParticipant]
-    search_fields = ['message_body']
+    search_fields = ["IsAuthenticated", "conversation_id", "Message.objects.filter", "HTTP_403_FORBIDDEN"]
     pagination_class = MessagePagination 
 
 
@@ -23,4 +23,4 @@ class ConversationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsConversationParticipant]
     pagination_class = MessagePagination
     # Assuming participants_username is a field in the Conversation model
-    search_fields = ['participants_username']
+    search_fields = ["IsAuthenticated", "conversation_id", "Message.objects.filter", "HTTP_403_FORBIDDEN"]

@@ -9,7 +9,7 @@ class IsParticipantInConversation(permissions.BasePermission):
         # Check if user is authenticated
         if not request.user.is_authenticated:
             return False
-        if view.action in ['send', 'view','update' 'delete']
+        if view.action in  ["PUT", "PATCH", "DELETE"]
         return (obj == request.user)
         else:
             return False 
