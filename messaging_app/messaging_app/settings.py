@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'chats'
+    'rest_framework_simplejwt',  # <-- Add this line to include the Simple JWT package
+    'chats',  # <-- Your app for handling chat functionality
 ]
+
 
 REST_FRAMEWORK = [{
     'DEFAULT_PERMISSION_CLASSES': [
@@ -47,10 +49,25 @@ REST_FRAMEWORK = [{
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',  # <-- Enables session-based authentication
-        'rest_framework.authentication.BasicAuthentication',    # (optional) Enables basic auth
+        'rest_framework.authentication.BasicAuthentication',  
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+      # (optional) Enables basic auth
     ],
+    'DEFAULT_PAGINATION_CLASS': [
+    'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,  # <-- Default page size for pagination
+    ]
 }]
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
+    "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
 
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
