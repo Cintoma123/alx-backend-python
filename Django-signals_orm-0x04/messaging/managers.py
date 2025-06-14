@@ -2,7 +2,7 @@ from django.db.models.signals import pre_save, post_save, pre_delete, post_delet
 from django.dispatch import receiver
 from .models import Message , Notification , User
 
-class UnreadMessageManager(models.Manager):
+class UnreadMessagesManager(models.Manager):
     '''
     Custom manager for Message model to handle unread messages and counts.'''
     def for_user(self):
@@ -35,4 +35,4 @@ class Message(models.Model):
     def __str__(self):
         return f"Message from {self.sender} to {self.recipient} at {self.timestamp}"
         # Get all unread messages for a user with username 'john'
-    unread_messages = Message.unread.for_user('john')
+    unread_messages = Message.unread.unread_for_user('john')
