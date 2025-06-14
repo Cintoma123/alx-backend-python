@@ -61,7 +61,7 @@ class MessageThreadView(APIView):
 class UnreadInboxView(APIView):
         unread = UnreadMessageManager()
     def get(self, request, username):
-        unread_messages = Message.unread.for_user(username).only('id','sender','recipient' ,'read','timestamp')
+        unread_messages = Message.unread.unread.for_user(username).only('id','sender','recipient' ,'read','timestamp')
         serializer = MessageSerializer(unread_messages, many=True)
         return Response(serializer.data)
 
