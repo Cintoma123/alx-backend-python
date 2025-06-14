@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 
 # Create your views here.
-class delete_message_view(APIView):
+class delete_user(APIView):
     def delete(self,request, user_id):
         try:
             user = User.objects.get(id=user_id)
