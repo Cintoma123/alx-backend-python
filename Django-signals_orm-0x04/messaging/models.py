@@ -15,6 +15,7 @@ class Message(models.Model):
     sender = models.CharField(max_length=100)
     recipient = models.CharField(max_length=100)
     content = models.TextField()
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
     read = models.BooleanField(default=False)  # Add this field
     timestamp = models.DateTimeField(auto_now_add=True)
     parent_message = models.ForeignKey(
