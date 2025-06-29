@@ -1,0 +1,8 @@
+#!/bin/bash
+# script for scaleing the application to replica 3
+kubectl scale depolyment my-deployment --replicas=3 
+echo " scale down sucessfully"
+
+# for verifying running pods 
+kubectl get pods 
+echo "pods verified"
