@@ -1,14 +1,14 @@
 apiVersion: networking.k8s.io/vi
 kind: Ingress
 metadata: 
- name: my-ingress
+ name: messaging_app-ingress
 annotations:
 kubernetes.io/ingress.class: nginx
 spec:
  tls:
  - secretName:tls-secret
  rules:
- - host: myapp.example.com
+ - host: messaging_app.example.com
  - http:
     paths:
     - path: /api/
@@ -18,11 +18,11 @@ spec:
         name: django-api-service
         port:
          number: 8000
-    - path : /
+    - path : /api/
       pathType: Prefix
       backend:
        service:
-        name: frontend-service
+        name: django-api-service
         port:
         number: 8000 
 

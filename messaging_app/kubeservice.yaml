@@ -1,0 +1,58 @@
+# writing to configure the ingress rule which first redirect all traffics to blue and then later to green
+apiVersion: networking.k8s.io/vi
+kind: Ingress
+metadata: 
+ name: messaging_app-ingress
+annotations:
+kubernetes.io/ingress.class: nginx
+spec:
+ tls:
+ - secretName:tls-secret
+ rules:
+ - host: messaging_app.example.com
+ - http:
+    paths:
+    - path: /api/
+      pathType: Prefix
+      backend:
+       service:
+        name: django-api-service
+        port:
+         number: 8000
+    - path : /
+      pathType: Prefix
+      backend:
+       service:
+        name: django-api-service
+        port:
+        number: 8000 
+
+# writing a configuration once the green version is tested and  validated , update the ingress to point to the Green service
+apiVersion: networking.k8s.io/vi
+kind: Ingress
+metadata: 
+ name: messaging_app-ingress
+annotations:
+kubernetes.io/ingress.class: nginx
+spec:
+ tls:
+ - secretName:tls-secret
+ rules:
+ - host: messaging_app.example.com
+ - http:
+    paths:
+    - path: /api/
+      pathType: Prefix
+      backend:
+       service:
+        name: django-api-green-service
+        port:
+         number: 8000
+    - path : /
+      pathType: Prefix
+      backend:
+       service:
+        name: django-api-service
+        port:
+        number: 8000 
+
