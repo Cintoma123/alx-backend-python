@@ -1,0 +1,34 @@
+# creating deployment manifest
+apiVersion: apps/apiV1
+kind: deployment
+metadata:
+  name : messaging_app
+spec:
+ replicas: 3
+ selector:
+  matchLabels:
+   app : messaging_app 
+  template:
+   metadata:
+    labels:
+      app: messaging_app
+    spec:
+    containers:
+    - name: messaging_app
+      image: messaging_app:latest
+      ports:
+      - containerPort: 8000
+
+    # creating Service manifest (service.yaml)
+    apiVersion: v1
+    kind : Service
+    metadata:
+     name: django-service
+    spec:
+      selector:
+        app: messaging_app
+      ports:
+      - protocol: TCP
+        port : 80
+        targetPort: 800
+        type: ClusterIP
