@@ -1,8 +1,25 @@
-#!/bin/bash
-# script for scaleing the application to replica 3
-kubectl scale depolyment  --replicas=3 
-echo " scale down sucessfully"
+#!/bin/bash 
+DEPOLYMENT_NAME= messaging_app
+NAMESPACE="default"
+REPLICAS=3
+SERVICE_PORT=8000
+LOAD_TEST_DURATION=15s
+LOAD_TEST_THREADS=2
+LOAD_TEST_CONNECTIONS=10
 
-# for verifying running pods 
-kubectl get pods 
-echo "pods verified"
+echo "scaling depolyment '$DEPLOYMENT_NAME' to '$REPLICAS'"
+# scale deployment 
+kubectl scale depolyment $DEPLOYMENT_NAME --replicas=$REPLICAS --namespace=$NAMESPACE
+
+
+# get pods 
+kubectl get pods --namespace=$NAMESPACE -1 app=$DEPLOYMENT_NAME
+
+# optional : port-forward for wrk 
+kubectl port-forward depolyment/$DEPLOYMENT_NAME 8080:$SERVICE_PORT --namespace=$NAMESPACE & sleep 5 # waiting for port-forward to initialize
+
+# run wrk 
+wrk -t$LOAD_TEST_THREADS -c$LOAD_TEST_CONNECTIONS -d$LOAD_TEST_DURATION http://localhost:8080
+
+# MONITOR For usuage
+kubectl top pods --namespace=$NAMESPACE
