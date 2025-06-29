@@ -1,0 +1,15 @@
+#!/bin/bash
+NAMESPACE=default
+BLUE_DEPLOYMENT = 
+GREEN_DEPOLYMENT = 
+
+# applying blue deployment 
+echo " applying blue depolyment"
+kubectl apply -f "$BLUE_DEPLOYMENT" -n "$NAMESPACE"
+
+echo " waiting for  green depolyment to be ready"
+kubectl rollout status -f "$GREEN_DEPLOYMENT" -n "$NAMESPACE"
+
+
+
+
