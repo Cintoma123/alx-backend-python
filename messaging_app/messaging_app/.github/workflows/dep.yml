@@ -22,10 +22,11 @@ jobs:
          password: ${{secrets.DOCKERHUB_TOKEN}}
       
       -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags:  messaging_app/portfolio:latest
+       name: Build and push
+       uses: docker/build-push-action@v5
+       with:
+         context: .
+         push: true
+         tags:  messaging_app/portfolio:latest
+
 

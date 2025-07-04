@@ -52,4 +52,7 @@ steps:
   run: |
    python manage.py test
 
+
+
+        
  
