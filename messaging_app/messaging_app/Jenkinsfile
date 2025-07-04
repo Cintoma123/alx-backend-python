@@ -18,7 +18,7 @@ pipline{
         stage('install dependencies'){
             steps{
                 echo "installing dependencies"
-                sh "pip install -r requirements.txt"
+                sh "pip3 install -r requirements.txt"
             }
         }
         stage('Run test'){
@@ -50,7 +50,8 @@ pipline{
                 sh "docker-compose down && docker-compose up -d"
             }
         }
+        stage("checkout"){
+            git branch: 'lts-1.532',credentialsID:'82aa2d26-ef4b-4a6a-a05f-2e1090b9c617',url:gith@github.com:jenkinsci/maven-plugin.git
+        }
     }
-
-
 }
