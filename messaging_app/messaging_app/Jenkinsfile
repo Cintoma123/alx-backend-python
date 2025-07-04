@@ -1,0 +1,56 @@
+pipline{
+    agent any
+    stages{
+        stage("clone code"){
+            step{
+                echo "clonning my code"
+                git url: "htttps://github.com/Cintoma123/messaging_app.git" ,branch:"main"
+            }
+        }
+
+        stage('Build'){
+            steps{
+                echo "building the docker image"
+                sh "docker build -t messaging_app ."
+            }
+        }
+        
+        stage('install dependencies'){
+            steps{
+                echo "installing dependencies"
+                sh "pip install -r requirements.txt"
+            }
+        }
+        stage('Run test'){
+            steps{
+                sh "pytest --junitxml=report.xml"
+            }
+        }
+
+        stage('publish report'){
+            steps{
+                junit "report.xml"
+            }
+        }
+
+        stage("Push to Docker Hub"){
+            steps{
+                echo "pushing the docker image to Docker HUB"
+                withCredentials([usernamePassword(credentialsID:"", passwordVariable:"",usernameVariable:"")]){
+                    sh "docker tag messaging_app ${env.usernamevariableoncecreated}/messaging_app:latest"
+                    sh "docker login -u ${env.usernamevariableoncecreated} -p ${env.passwordvariable}"
+                    sh "docker push ${env.usernamevariableoncecreated}/messaging_app:latest"
+                }
+
+            }
+        }
+        stage("Deploy"){
+            steps{
+                echo "depolying my container"
+                sh "docker-compose down && docker-compose up -d"
+            }
+        }
+    }
+
+
+}
