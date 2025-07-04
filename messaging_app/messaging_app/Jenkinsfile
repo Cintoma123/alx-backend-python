@@ -51,7 +51,7 @@ pipline{
             }
         }
         stage("checkout"){
-            git branch: 'lts-1.532',credentialsID:'82aa2d26-ef4b-4a6a-a05f-2e1090b9c617',url:gith@github.com:jenkinsci/maven-plugin.git
+            git branch: 'lts-1.532',credentialsId:'82aa2d26-ef4b-4a6a-a05f-2e1090b9c617',url:gith@github.com:jenkinsci/maven-plugin.git
         }
     }
 }
