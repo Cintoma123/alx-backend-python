@@ -18,7 +18,7 @@ pipline{
         stage('install dependencies'){
             steps{
                 echo "installing dependencies"
-                sh "pip install -r messaging_app/requirements.txt"
+                sh "pip3 install -r messaging_app/requirements.txt"
             }
         }
         stage('Run test'){
